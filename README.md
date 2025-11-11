@@ -1,21 +1,17 @@
 # ASD
 
-## ORIV Filtering and Annotation Pipeline
-
-This repository provides a reproducible **Hail-based pipeline** for filtering, annotating, and classifying  
-**One-sided Rare Inherited Variants (ORIV)** in human cohort sequencing data.
-
----
 ### 📦 Environment Setup
 ```bash
 conda env create -f asd_gat.yml
 conda activate asd_gat
 ```
 
-### 🧩 Overview
+All major steps are modularized in `vcf_process_func.py`
 
-All major steps are modularized in `vcf_process_func.py`,  
-and orchestrated by the main driver script `filter_oriv.py`.
+## 1. `filter_oriv.py` - ORIV Filtering and Annotation Pipeline
+### 📘 Overview
+This code provides a reproducible **Hail-based pipeline** for filtering, annotating, and classifying  
+**One-sided Rare Inherited Variants (ORIV)** in human cohort sequencing data.
 
 ### 🚀 How to Use
 1️⃣ Edit configuration in filter_oriv.py
@@ -75,3 +71,57 @@ This will sequentially perform:
 | ORIV           | `<project>_<date>_orih.ht`             | Rare inherited variants          |
 | ORIV Input     | `<project>_orih_input.tsv.bgz`         | Deep learning model input        |
 | ORIV Info      | `<project>_orih_<date>.tsv.bgz`        | Full variant annotation table    |
+
+
+
+
+
+
+## 2. `make_akoriv.py` — Cross-Cohort ORIV Integration Pipeline
+### 📘 Overview
+
+make_akoriv.py performs cross-cohort inherited variant (ORIV) integration between an internal Korean cohort and an external dataset using the Hail framework.
+It identifies shared and unique inherited variants, generates gene-level summaries, and exports model-ready tables for downstream analysis.
+
+This script is designed as the second stage of the variant processing pipeline, following `filter_oriv.py`.
+
+🧩 Input Dependencies
+
+This script requires outputs from filter_oriv.py:
+
+| File Type                | Example Path                                              | Description                              |
+| ------------------------ | --------------------------------------------------------- | ---------------------------------------- |
+| Korean ORIH table        | `/path/to/<project>/Inputs/<project>_<date>_orih.ht`      | Annotated rare inherited variants        |
+| Korean OIH table         | `/path/to/<project>/Inputs/<project>_<date>_oih.ht`       | Raw inherited variant candidates         |
+| ORIH input list          | `/path/to/<project>/Outputs/<project>_orih_input.tsv.bgz` | Gene list used for filtering             |
+| External cohort IH table | `/path/to/<project2>/Inputs/<project2>_<date>_oih.ht`     | External dataset inherited variant table |
+
+
+📤 Output Files
+| Output                                        | Path                  | Description                                 |
+| --------------------------------------------- | --------------------- | ------------------------------------------- |
+| `*_ih_in_<project>orihgene.ht`                | `<project2>/Inputs/`  | IH variants overlapping Korean ORIH genes   |
+| `*_fam_oih.ht`                                | `<project2>/Inputs/`  | Family-level inherited variant table        |
+| `*_uniq_oriv.ht`                              | `<project2>/Inputs/`  | Unique (non-overlapping) inherited variants |
+| `*_overlap_<project>oriv.ht`                  | `<project2>/Inputs/`  | Shared inherited variants between cohorts   |
+| `*_akoriv_in_<project>orihgene.ht`            | `<project2>/Inputs/`  | Combined integrated AKORIV dataset          |
+| `*_akoriv_in_<project>orihgene_input.tsv.bgz` | `<project2>/Outputs/` | Model-ready per-sample × gene matrix        |
+| `*_akoriv_in_<project>orihgene_tidy.ht`       | `<project2>/Inputs/`  | Cleaned annotated Hail Table                |
+| `*_akoriv_in_<project>orihgene.tsv.bgz`       | `<project2>/Outputs/` | Final summarized variant information        |
+
+
+🚀 Usage
+```bash
+python make_akoriv.py
+```
+
+Before running, update the following fields inside the script:
+
+```bash
+date = "date"
+project = 'project_name'
+project2 = "external_cohort_project_name"
+i_dir = "/path/to/maindir"
+sample_info_path = "/path/to/sampleinfo.csv"
+```
+

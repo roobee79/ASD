@@ -1,4 +1,4 @@
-name: oriv
+name: asd_gat
 channels:
   - pyg
   - pytorch

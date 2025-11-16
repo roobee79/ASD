@@ -125,3 +125,12 @@ i_dir = "/path/to/maindir"
 sample_info_path = "/path/to/sampleinfo.csv"
 ```
 
+## 3. AutismGAT_stable.py — Downstream GAT Model Training
+
+### 📘 Overview
+After generating AKORIV tables with make_akoriv.py,
+this step performs graph-based modeling of rare inherited variant profiles using a Graph Attention Network (GAT).
+The model learns gene-level embeddings from the filtered AKORIV dataset for downstream prediction or interpretation.
+
+
+

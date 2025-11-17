@@ -25,7 +25,38 @@ and store them under the following directory:
 
 `gsutil -m cp -r gs://gcp-public-data--gnomad/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_transcript.ht ./`
 
-(3) LCR-hs38.bed
+(3) MPC38.ht
+You can download the original MPC data from the Broad Institute FTP:
+```bash
+https://ftp.broadinstitute.org/pub/ExAC_release/release1/regional_missense_constraint/
+```
+
+The provided data correspond to hg19/GRCh37 coordinates.
+To use it with this pipeline (GRCh38 reference), perform liftover to hg38.
+
+```
+🧭 Conversion Example (Hail)
+import hail as hl
+
+# Import MPC text file (from FTP)
+mpc = hl.import_table("MPC.txt.bgz", impute=True)
+
+# Add locus field (hg19)
+mpc = mpc.annotate(
+    locus = hl.locus(mpc.chrom, hl.int(mpc.pos), reference_genome='GRCh37')
+)
+
+# Liftover to GRCh38
+mpc = hl.liftover(mpc, "gs://hail-common/references/grch37_to_grch38.over.chain.gz", reference_genome='GRCh38')
+
+# Key by locus and write Hail Table
+mpc = mpc.key_by(mpc.locus)
+mpc.write("MPC38.ht", overwrite=True)
+```
+
+
+
+(4) LCR-hs38.bed
 
 ```bash
 wget https://github.com/lh3/varcmp/raw/master/scripts/LCR-hs38.bed.gz
@@ -37,6 +68,7 @@ Then, organize the folder structure as follows:
 Resources/
 ├── gnomad.genomes.v3.1.1.sites.ht/
 ├── gnomad.v2.1.1.lof_metrics.by_transcript.ht/
+├── MPC38.ht
 └── LCR-hs38.bed/                        
 ```
 

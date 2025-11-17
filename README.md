@@ -249,6 +249,82 @@ models/orih_entrz_v2_scgene_L1_INT.csv
 
 This file provides the curated list of genes (Entrez IDs) included in the GAT model input.
 
+## 🧩 Dataset Preparation — Input File Formats
+
+Below are anonymized examples of required input files for constructing the **GAT dataset**.  
+Each file must be placed under the appropriate `raw/` or `input/` directory before running the preprocessing pipeline.
+
+---
+
+### (1) `st12_gene_ns.csv` — Gene Network Edges  
+This file defines **gene–gene connections** (from STRING or BioGRID).  
+All gene identifiers should be converted to **Entrez IDs** for consistent graph construction.
+
+| Index | gene_id1 | gene_id2 |
+|-------|-----------|----------|
+| 0 | 381 | 4074 |
+| 1 | 381 | 1595 |
+| 2 | 381 | 79090 |
+| 3 | 381 | 57414 |
+| 4 | 381 | 114881 |
+| 5 | 381 | 57172 |
+| 6 | 381 | 972 |
+| 7 | 381 | 84220 |
+| 8 | 381 | 11285 |
+| 9 | 381 | 11055 |
+
+> 🧠 *Tip:* You can build this file from STRING (v12) or BioGRID and map Ensembl IDs to **Entrez IDs** to match the gene-level features used by the model.
+
+---
+
+### (2) `Korean_ASD_WGS_v4_2186.ped` — Family Structure (PED) File  
+Standard **PED format** describing family and individual relationships (trio, sibling, etc.).  
+Each row represents a single individual.
+
+| fam_id | s | f_id | m_id | sex | pheno |
+|---------|---|------|------|------|--------|
+| FAM001 | SAMPLE001 | 0 | 0 | 1 | 1 |
+| FAM001 | SAMPLE002 | 0 | 0 | 2 | 1 |
+| FAM001 | SAMPLE003 | SAMPLE001 | SAMPLE002 | 1 | 2 |
+| FAM002 | SAMPLE004 | 0 | 0 | 1 | 1 |
+| FAM002 | SAMPLE005 | 0 | 0 | 2 | 1 |
+| FAM002 | SAMPLE006 | SAMPLE004 | SAMPLE005 | 2 | 2 |
+
+> 🔹 `sex`: 1 = male, 2 = female  
+> 🔹 `pheno`: 1 = unaffected (control), 2 = affected (ASD case)
+
+---
+
+### (3) `ko_info_ac2.csv` — Sample Annotation Metadata  
+Contains per-sample metadata including ASD affection status and optional clustering scores.  
+Even if `module` and `css` values are unknown, **the columns must still be present** (use `NaN` or leave empty).
+
+
+| Index | s | AC_check | module | css |
+|--------|---|-----------|--------|-----|
+| 0 | SAMPLE001 | 1 | 1 | 9 |
+| 1 | SAMPLE002 | 1 | 1 | 8 |
+| 2 | SAMPLE003 | 1 | 1 | 6 |
+| 3 | SAMPLE004 | 1 | 2 | 10 |
+| 4 | SAMPLE005 | 1 | NaN | NaN |
+| 5 | SAMPLE006 | 1 | 2 | 6 |
+| 6 | SAMPLE007 | 1 | NaN | NaN |
+| 7 | SAMPLE008 | 2 | 2 | 1 |
+| 8 | SAMPLE009 | 2 | NaN | NaN |
+
+> ⚙️ **Column definitions:**  
+> - `s`: Sample ID (unique individual ID)  
+> - `AC_check`: ASD affection status (`1` = control, `2` = ASD case)  
+> - `module`: Optional numeric label for clustering or network module (must exist, can be `NaN`)  
+> - `css`: Optional continuous score (must exist, can be `NaN`)  
+
+> ⚠️ *Note:* The CSV must contain **exactly 5 columns** (`Index`, `s`, `AC_check`, `module`, `css`) — even if `module` and `css` values are missing.  
+> The parser expects a fixed schema for proper alignment during data loading.
+
+
+
+
+
 🚀 Step 2 — Run the GAT Model
 
 Execute the stable GAT model using:

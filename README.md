@@ -348,7 +348,7 @@ model.eval()
 ```
 
 🧩 The provided AutismGAT.pt corresponds to the best-performing model trained on project1,
-allowing direct inference, visualization (e.g., attention maps), and downstream analysis without retraining.
+allowing direct inference, visualization (e.g., attention score), and downstream analysis without retraining.
 
 -----------------------------------------------------------------------------------------------------------
 ### 🔐 Data Availability (MSSNG Controlled Access)

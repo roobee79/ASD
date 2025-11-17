@@ -132,5 +132,23 @@ After generating AKORIV tables with make_akoriv.py,
 this step performs graph-based modeling of rare inherited variant profiles using a Graph Attention Network (GAT).
 The model learns gene-level embeddings from the filtered AKORIV dataset for downstream prediction or interpretation.
 
+🔬 Step 1 — Filter Genes
 
+Filter the integrated AKORIV dataset to include only the stable genes used for model training:
 
+```bash
+models/orih_entrz_v2_scgene_L1_INT.csv
+```
+
+This file provides the curated list of genes (Entrez IDs) included in the GAT model input.
+
+🚀 Step 2 — Run the GAT Model
+
+Execute the stable GAT model using:
+
+```bash
+python models/AutismGAT_stable.py
+```
+
+This script loads the filtered AKORIV dataset and trains the Graph Attention Network (GAT)
+to learn gene-level embeddings for rare inherited variant profiles across cohorts.

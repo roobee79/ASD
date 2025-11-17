@@ -100,7 +100,7 @@ This script requires outputs from filter_oriv.py:
 📤 Output Files
 | Output                                        | Path                  | Description                                 |
 | --------------------------------------------- | --------------------- | ------------------------------------------- |
-| `*_ih_in_<project>orihgene.ht`                | `<project2>/Inputs/`  | IH variants overlapping Korean ORIH genes   |
+| `*_ih_in_<project>orihgene.ht`                | `<project2>/Inputs/`  | IH variants overlapping <project> ORIH genes   |
 | `*_fam_oih.ht`                                | `<project2>/Inputs/`  | Family-level inherited variant table        |
 | `*_uniq_oriv.ht`                              | `<project2>/Inputs/`  | Unique (non-overlapping) inherited variants |
 | `*_overlap_<project>oriv.ht`                  | `<project2>/Inputs/`  | Shared inherited variants between cohorts   |

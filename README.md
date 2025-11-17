@@ -101,7 +101,6 @@ This will sequentially perform:
 | Sample QC      | `<project>_<date>_after_sampleQC.mt`   | After sample annotation          |
 | Variant QC     | `<project>_<date>_after_variantQC.mt`  | After variant-level filtering    |
 | VEP            | `<project>_<date>_after_vep.mt`        | After annotation                 |
-| Classified     | `<project>_<date>_after_classified.mt` | After consequence classification |
 | Rare Filtering | `<project>_<date>_hqrarehet.mt`        | High-quality rare hets           |
 | OIV            | `<project>_<date>_oih.ht`              | One-sided inherited variants     |
 | ORIV           | `<project>_<date>_orih.ht`             | Rare inherited variants          |

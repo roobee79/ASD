@@ -190,6 +190,29 @@ def Annotate_pLI(pLI_score_path, tb):
     return tb
 
 
+def Tidy_up(tb):
+    tb = tb.annotate(vep = tb.vep.annotate(transcript_consequences = tb.vep.transcript_consequences[0], regulatory_feature_consequences = tb.vep.regulatory_feature_consequences[0], motif_feature_consequences = tb.vep.motif_feature_consequences[0], intergenic_consequences = tb.vep.intergenic_consequences[0], colocated_variants = tb.vep.colocated_variants[0]))
+    tb = tb.annotate(info = tb.info.annotate(info_AC = tb.info.AC[0],info_AF = tb.info.AF[0],MLEAC = tb.info.MLEAC[0],MLEAF = tb.info.MLEAF[0]))
+    tb = tb.annotate(variant_qc = tb.variant_qc.annotate(AC = "[" + hl.str(tb.variant_qc.AC[0]) + "," + hl.str(tb.variant_qc.AC[1])+ "]",AF = "[" + hl.str(tb.variant_qc.AF[0]) + "," + hl.str(tb.variant_qc.AF[1])+ "]",homozygote_count = "[" + hl.str(tb.variant_qc.homozygote_count[0]) + "," + hl.str(tb.variant_qc.homozygote_count[1]) + "]"))
+    tb = tb.annotate(AD = "[" + hl.str(tb.AD[0]) + "," + hl.str(tb.AD[1]) + "]",PL = "[" + hl.str(tb.PL[0]) + "," + hl.str(tb.PL[1]) + "," + hl.str(tb.PL[2]) + "]",SB = tb.SB[0],
+        variant = hl.variant_str(tb.locus, tb.alleles), PID_variant = tb.locus.contig + ":" + tb.PID.split('_')[0] + ":" + tb.PID.split('_')[1] + ":" + tb.PID.split('_')[2])
+    tb = tb.annotate(vep = tb.vep.annotate(colocated_variants = tb.vep.colocated_variants.annotate(clin_sig = hl.str(",").join(tb.vep.colocated_variants.clin_sig),pubmed = hl.str(",").join(tb.vep.colocated_variants.pubmed.map(lambda x: hl.str(x))))))
+    tb = tb.annotate(vep = tb.vep.annotate(intergenic_consequences = tb.vep.intergenic_consequences.annotate(consequence_terms = hl.str(",").join(tb.vep.intergenic_consequences.consequence_terms)),motif_feature_consequences = tb.vep.motif_feature_consequences.annotate(consequence_terms = hl.str(",").join(tb.vep.motif_feature_consequences.consequence_terms)),regulatory_feature_consequences = tb.vep.regulatory_feature_consequences.annotate(consequence_terms = hl.str(",").join(tb.vep.regulatory_feature_consequences.consequence_terms)),transcript_consequences = tb.vep.transcript_consequences.annotate(consequence_terms = hl.str(",").join(tb.vep.transcript_consequences.consequence_terms),cds_end_NF = hl.str(",").join(tb.vep.transcript_consequences.cds_end_NF))))
+    tb = tb.annotate(vep = tb.vep.annotate(nearest = hl.str(",").join(tb.vep.nearest)))
+    #Select columns
+    tb = tb.select(tb.rsid, tb.variant, tb.PID_variant, tb.PID, tb.gene_symbol, tb.gene_id,
+                   tb.variant_qc.AC, tb.variant_qc.AN, tb.variant_qc.AF, tb.variant_qc.call_rate, tb.DP, tb.GQ, tb.AB, tb.info.info_AC, tb.info.info_AF, tb.info.MLEAC, tb.info.MLEAF, tb.info.QD, 
+                   tb.vep.most_severe_consequence, tb.vep.transcript_consequences.amino_acids, tb.vep.transcript_consequences.appris, tb.vep.transcript_consequences.biotype, 
+                   tb.vep.transcript_consequences.cadd_phred, tb.vep.transcript_consequences.ccds, tb.vep.transcript_consequences.consequence_terms, 
+                   tb.vep.transcript_consequences.domains, tb.vep.transcript_consequences.exon, tb.vep.transcript_consequences.hgnc_id, tb.vep.transcript_consequences.hgvsg, tb.vep.transcript_consequences.hgvsc, tb.vep.transcript_consequences.hgvsp, tb.vep.transcript_consequences.hgvs_offset, 
+                   tb.vep.transcript_consequences.impact, tb.vep.transcript_consequences.polyphen_prediction, tb.vep.transcript_consequences.polyphen_score, tb.vep.transcript_consequences.sift_prediction, tb.vep.transcript_consequences.sift_score, 
+                   tb.vep.transcript_consequences.protein_id, tb.vep.transcript_consequences.protein_start, tb.vep.transcript_consequences.protein_end, tb.vep.transcript_consequences.strand, tb.vep.transcript_consequences.transcript_id, 
+                   tb.vep.transcript_consequences.lof, tb.vep.transcript_consequences.lof_flags, tb.pLI, tb.oe_lof_upper, tb.MPC, tb.non_neuro_gnomad_af, tb.non_neuro_gnomad_ac, tb.VariantType, tb.variant_class)
+    tb = tb.flatten()
+    return tb
+
+
+
 def convert_input(tb):
     tb = tb.key_by('locus', 'alleles', 's')
     tb = tb.select(tb.gene_id, tb.variant_class, tb.VariantType)

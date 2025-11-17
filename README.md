@@ -235,11 +235,18 @@ sample_info_path = "/path/to/sampleinfo.csv"
 ## 3. AutismGAT_stable.py — Downstream GAT Model Training
 
 ### 📘 Overview
-After generating AKORIV tables with make_akoriv.py,
-this step performs graph-based modeling of rare inherited variant profiles using a Graph Attention Network (GAT).
-The model learns gene-level embeddings from the filtered AKORIV dataset for downstream prediction or interpretation.
+This code corresponds to **project1**, implementing the downstream **Graph Attention Network (GAT)** training stage  
+for modeling **rare inherited variant (RIV)** profiles in ASD cohorts.  
 
-🔬 Step 1 — Filter Genes
+After generating AKORIV tables with `make_akoriv.py`, this step performs **graph-based learning** of gene–gene relationships  
+and individual variant burdens to derive **gene-level embeddings** for downstream prediction and biological interpretation.
+
+A pretrained model checkpoint (`AutismGAT.pt`) trained on **project1** is also provided for reproducibility,  
+enabling users to reproduce inference and visualization without retraining.
+
+---
+
+### 🔬 Step 1 — Filter Genes
 
 Filter the integrated AKORIV dataset to include only the stable genes used for model training:
 
@@ -266,12 +273,6 @@ All gene identifiers should be converted to **Entrez IDs** for consistent graph 
 | 1 | 381 | 1595 |
 | 2 | 381 | 79090 |
 | 3 | 381 | 57414 |
-| 4 | 381 | 114881 |
-| 5 | 381 | 57172 |
-| 6 | 381 | 972 |
-| 7 | 381 | 84220 |
-| 8 | 381 | 11285 |
-| 9 | 381 | 11055 |
 
 > 🧠 *Tip:* You can build this file from STRING (v12) or BioGRID and map Ensembl IDs to **Entrez IDs** to match the gene-level features used by the model.
 
@@ -308,9 +309,7 @@ Even if `module` and `css` values are unknown, **the columns must still be prese
 | 3 | SAMPLE004 | 1 | 2 | 10 |
 | 4 | SAMPLE005 | 1 | NaN | NaN |
 | 5 | SAMPLE006 | 1 | 2 | 6 |
-| 6 | SAMPLE007 | 1 | NaN | NaN |
-| 7 | SAMPLE008 | 2 | 2 | 1 |
-| 8 | SAMPLE009 | 2 | NaN | NaN |
+
 
 > ⚙️ **Column definitions:**  
 > - `s`: Sample ID (unique individual ID)  
@@ -336,6 +335,20 @@ python models/AutismGAT_stable.py
 This script loads the filtered AKORIV dataset and trains the Graph Attention Network (GAT)
 to learn gene-level embeddings for rare inherited variant profiles across cohorts.
 
+
+If you wish to use the pretrained model instead of retraining:
+
+```bash
+import torch
+from models import AutismGAT
+
+model = AutismGAT()
+model.load_state_dict(torch.load("models/AutismGAT.pt"))
+model.eval()
+```
+
+🧩 The provided AutismGAT.pt corresponds to the best-performing model trained on project1,
+allowing direct inference, visualization (e.g., attention maps), and downstream analysis without retraining.
 
 -----------------------------------------------------------------------------------------------------------
 ### 🔐 Data Availability (MSSNG Controlled Access)

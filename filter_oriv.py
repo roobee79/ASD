@@ -52,7 +52,7 @@ sample_info_path = "/path/to/sampleinfo.csv"    # Sample info file
 
 bed_path = os.path.join(i_dir, "Resources", "LCR-hs38.bed")
 gnomAD_path = os.path.join(i_dir, "Resources", "gnomad.genomes.v3.1.1.sites.ht")
-AF_path = os.path.join(i_dir, "Resources", "Public_DB_outerjoin_AF_table_220719.ht")
+# AF_path = os.path.join(i_dir, "Resources", "Public_DB_outerjoin_AF_table_220719.ht")
 pLI_score_path = os.path.join(i_dir, "Resources", "gnomad.v2.1.1.lof_metrics.by_transcript.ht")
 MPC_path = "/path/to/MPC38.ht"
 
@@ -193,7 +193,7 @@ print("@@ Finished saving ORIV input file.\n")
 # 10. Detailed ORIV Variant Information
 # ============================================================
 
-tb = VPF.Categorize_allele_frequency(AF_path, tb)
+# tb = VPF.Categorize_allele_frequency(AF_path, tb)
 tb = VPF.Annotate_pLI(pLI_score_path, tb)
 tb_tidy = VPF.Tidy_up(tb)
 

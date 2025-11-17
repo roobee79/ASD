@@ -11,26 +11,33 @@ conda activate asd_gat
 Before running the pipeline, download the required Hail resource tables (.ht)
 and store them under the following directory:
 
-`/path/to/maindir/Resources/`
+`Resources/`
 
 1️⃣ Install gsutil
 `conda install -c conda-forge gsutil`
 
 2️⃣ Download Required Resources
 (1) gnomAD v3.1.1 sites (for variant-level AF filtering)
+
 `gsutil -m cp -r gs://gcp-public-data--gnomad/release/3.1.1/ht/genomes/gnomad.genomes.v3.1.1.sites.ht ./`
 
 (2) gnomAD v2.1.1 LoF metrics (for pLI and LOEUF)
+
 `gsutil -m cp -r gs://gcp-public-data--gnomad/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_transcript.ht ./`
 
+(3) LCR-hs38.bed
+
+```bash
+wget https://github.com/lh3/varcmp/raw/master/scripts/LCR-hs38.bed.gz
+gunzip LCR-hs38.bed.gz
+```
 
 Then, organize the folder structure as follows:
 ```bash
 Resources/
 ├── gnomad.genomes.v3.1.1.sites.ht/
 ├── gnomad.v2.1.1.lof_metrics.by_transcript.ht/
-├── MPC38.ht/                                 # (optional)
-└── LCR.GRCh38.bed.ht/                        # (optional)
+└── LCR-hs38.bed/                        
 ```
 
 -----------------------------------------------------------------------------------------------------------

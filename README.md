@@ -86,10 +86,9 @@ This will sequentially perform:
 1. **VCF import and sample QC**
 2. **Variant QC (multi-allelic, LCR, call rate, HWE)**
 3. **VEP annotation** with LOFTEE, CADD, and MPC
-4. **Variant classification** (PTV, damaging missense, etc.)
-5. **Rare heterozygous filtering**
-6. **One-sided rare inherited variant (ORIV) detection**
-7. **Export for deep learning / downstream statistical models**
+4. **Rare heterozygous filtering**
+5. **One-sided rare inherited variant (ORIV) detection**
+6. **Export for deep learning / downstream statistical models**
 
    Processed Hail MatrixTables (.mt, .ht)
 
@@ -160,6 +159,10 @@ i_dir = "/path/to/maindir"
 sample_info_path = "/path/to/sampleinfo.csv"
 ```
 
+
+-----------------------------------------------------------------------------------------------------------
+
+
 ## 3. AutismGAT_stable.py — Downstream GAT Model Training
 
 ### 📘 Overview
@@ -187,3 +190,13 @@ python models/AutismGAT_stable.py
 
 This script loads the filtered AKORIV dataset and trains the Graph Attention Network (GAT)
 to learn gene-level embeddings for rare inherited variant profiles across cohorts.
+
+
+-----------------------------------------------------------------------------------------------------------
+### 🔐 Data Availability (MSSNG Controlled Access)
+
+The final outputs of Step 1 and Step 2 are currently undergoing MSSNG’s formal release process and will become accessible through the MSSNG controlled-access portal in the next data update.
+
+The input data and model weights used in Step 3 are also available through the MSSNG controlled-access system, subject to MSSNG’s data access policies.
+
+⚠️ All materials can be accessed only by users approved under MSSNG’s controlled-access data governance framework.

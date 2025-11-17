@@ -54,7 +54,7 @@ bed_path = os.path.join(i_dir, "Resources", "LCR-hs38.bed")
 gnomAD_path = os.path.join(i_dir, "Resources", "gnomad.genomes.v3.1.1.sites.ht")
 # AF_path = os.path.join(i_dir, "Resources", "Public_DB_outerjoin_AF_table_220719.ht")
 pLI_score_path = os.path.join(i_dir, "Resources", "gnomad.v2.1.1.lof_metrics.by_transcript.ht")
-MPC_path = "/path/to/MPC38.ht"
+MPC_path = os.path.join(i_dir, "Resources", "MPC38.ht") 
 
 
 # ============================================================

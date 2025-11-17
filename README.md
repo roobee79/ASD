@@ -52,6 +52,9 @@ This code provides a reproducible **Hail-based pipeline** for filtering, annotat
 ### 🚀 How to Use
 1️⃣ Edit configuration in filter_oriv.py
 
+Important:
+You must edit the Configuration and File Path Definitions sections before running the script.
+
 Open the script and set up:
 ```bash
 # Configuration section
@@ -65,9 +68,6 @@ ped_path = "/path/to/pedigree.ped"
 sample_info_path = "/path/to/sample_info.csv"
 MPC_path = "/path/to/MPC38.ht"
 ```
-
-⚠️ Important:
-You must edit the Configuration and File Path Definitions sections before running the script.
 
 
 
@@ -103,13 +103,6 @@ iid12348       s       14109
 ```
 
 
-
-All checkpoints and outputs will be saved under:
-```bash
-{i_dir}/{project}/Inputs/
-{i_dir}/{project}/Outputs/
-```
-
 3️⃣ Run the pipeline
 
 From the repository root:
@@ -128,6 +121,15 @@ This will sequentially perform:
    **Processed Hail MatrixTables (.mt, .ht)**
 
    **Summary files (.tsv.bgz) for analysis**
+
+
+
+All checkpoints and outputs will be saved under:
+```bash
+{i_dir}/{project}/Inputs/
+{i_dir}/{project}/Outputs/
+```
+
 
 #### 📤 Output Files
 | Step           | Output                                 | Description                      |

@@ -6,7 +6,7 @@ conda env create -f asd_gat.yml
 conda activate asd_gat
 ```
 
-All major steps are modularized in `vcf_process_func.py`
+Step 1,2 are modularized in `vcf_process_func.py`
 
 ## 1. `filter_oriv.py` - ORIV Filtering and Annotation Pipeline
 ### 📘 Overview

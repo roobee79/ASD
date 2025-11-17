@@ -129,12 +129,12 @@ after_vep_dir = os.path.join(i_dir, project, "Inputs", f"{project}_{date}_after_
 print("Checkpoint:", after_vep_dir)
 mt = mt.checkpoint(after_vep_dir, overwrite=True)
 
-# # Classification
-# mt = hl.read_matrix_table(after_vep_dir)
-# mt = VPF.Classify_variants(MPC_path, gnomAD_path, mt)
-# after_classified_dir = os.path.join(i_dir, project, "Inputs", f"{project}_{date}_after_classified.mt")
-# print("Checkpoint:", after_classified_dir)
-# mt = mt.checkpoint(after_classified_dir, overwrite=True)
+# Classification
+mt = hl.read_matrix_table(after_vep_dir)
+mt = VPF.Classify_variants(MPC_path, gnomAD_path, mt)
+after_classified_dir = os.path.join(i_dir, project, "Inputs", f"{project}_{date}_after_classified.mt")
+print("Checkpoint:", after_classified_dir)
+mt = mt.checkpoint(after_classified_dir, overwrite=True)
 
 # ============================================================
 # 7. Variant Filtering Workflow

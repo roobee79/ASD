@@ -195,8 +195,12 @@ to learn gene-level embeddings for rare inherited variant profiles across cohort
 -----------------------------------------------------------------------------------------------------------
 ### 🔐 Data Availability (MSSNG Controlled Access)
 
-The final outputs of Step 1 and Step 2 are currently undergoing MSSNG’s formal release process and will become accessible through the MSSNG controlled-access portal in the next data update.
+The following datasets are currently undergoing MSSNG’s formal release process:
 
-The input data and model weights used in Step 3 are also available through the MSSNG controlled-access system, subject to MSSNG’s data access policies.
+- Step 1 final outputs
 
-⚠️ All materials can be accessed only by users approved under MSSNG’s controlled-access data governance framework.
+- Step 2 final outputs
+
+- Step 3 input data and model weights
+
+These materials will become accessible through the MSSNG controlled-access portal upon completion of the release process.

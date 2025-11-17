@@ -69,6 +69,37 @@ MPC_path = "/path/to/MPC38.ht"
 ⚠️ Important:
 You must edit the Configuration and File Path Definitions sections before running the script.
 
+
+🧬 Sample Information File (sample_info.tsv)
+
+This file provides sample-level metadata used during the Sample_QC() step
+to annotate each sample with family and role information.
+
+| Column | Description                                          |
+| ------ | ---------------------------------------------------- |
+| `s`    | Sample ID (unique per individual)                    |
+| `ROLE` | Relationship role within family (`d`, `m`, `p`, `s`) |
+| `fam`  | Family ID linking related samples                    |
+
+ROLE legend:
+
+d — Father (dad)
+
+m — Mother
+
+p — Proband (case / affected child)
+
+s — Sibling (unaffected child)
+
+📄 Example Format
+```bash
+s       ROLE    fam
+iid12345       m       14109
+iid12346       d       14109
+iid12347       p       14109
+iid12348       s       14109
+```
+
 All checkpoints and outputs will be saved under:
 ```bash
 {i_dir}/{project}/Inputs/
@@ -90,9 +121,9 @@ This will sequentially perform:
 5. **One-sided rare inherited variant (ORIV) detection**
 6. **Export for deep learning / downstream statistical models**
 
-   Processed Hail MatrixTables (.mt, .ht)
+   **Processed Hail MatrixTables (.mt, .ht)**
 
-   Summary files (.tsv.bgz) for analysis
+   **Summary files (.tsv.bgz) for analysis**
 
 #### 📤 Output Files
 | Step           | Output                                 | Description                      |

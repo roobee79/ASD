@@ -70,7 +70,9 @@ MPC_path = "/path/to/MPC38.ht"
 You must edit the Configuration and File Path Definitions sections before running the script.
 
 
-🧬 Sample Information File (sample_info.tsv)
+
+
+2️⃣ Sample Information File (sample_info.tsv)
 
 This file provides sample-level metadata used during the Sample_QC() step
 to annotate each sample with family and role information.
@@ -100,13 +102,15 @@ iid12347       p       14109
 iid12348       s       14109
 ```
 
+
+
 All checkpoints and outputs will be saved under:
 ```bash
 {i_dir}/{project}/Inputs/
 {i_dir}/{project}/Outputs/
 ```
 
-2️⃣ Run the pipeline
+3️⃣ Run the pipeline
 
 From the repository root:
 ```bash

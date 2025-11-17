@@ -65,8 +65,7 @@ i_dir = "/absolute/path/to/main_dir"   # Main working directory
 # File path definitions
 vcf_path = "/path/to/raw.vcf.gz"
 ped_path = "/path/to/pedigree.ped"
-sample_info_path = "/path/to/sample_info.csv"
-MPC_path = "/path/to/MPC38.ht"
+sample_info_path = "/path/to/sample_info.tsv"
 ```
 
 

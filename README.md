@@ -340,9 +340,9 @@ If you wish to use the pretrained model instead of retraining:
 
 ```bash
 import torch
-from models import AutismGAT
+from models import AutismGAT_stable
 
-model = AutismGAT()
+model = AutismGAT_stable()
 model.load_state_dict(torch.load("models/AutismGAT.pt"))
 model.eval()
 ```
